@@ -1,0 +1,18 @@
+# Start with the base raspiOS-lite image
+FROM https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2023-05-03/2023-05-03-raspios-bullseye-armhf-lite.img.xz
+TO pi-magic-mirror-2.img
+
+PUMP 500M
+
+# Install an ssh key if specified
+RUN mkdir -p /home/pi/.ssh
+
+# Enable SSH
+RUN raspi-config nonint do_ssh 0
+
+# Install packages
+RUN apt-get update
+
+# Clean up
+RUN apt-get clean
+RUN apt-get autoremove

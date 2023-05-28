@@ -1,0 +1,19 @@
+name: Build
+on:
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          submodules: recursive
+      - name: Run PIMOD
+        uses: Nature40/pimod@v0.6.0
+        with:
+          pifile: image.Pifile
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: pi-magic-mirror-2-${{ github.sha }}.zip
+          path: pi-magic-mirror-2.img
